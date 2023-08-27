@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { genTextTaskAsyncAiMqUsingPOST } from '@/services/AiPlots/textController';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Card, Divider, Form, Input, message, Select, Space, Upload } from 'antd';
@@ -104,7 +103,6 @@ const AddTextMQ: React.FC = () => {
           </a>
         </div>
       </Card>
-      <Footer />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import { SYSTEM_LOGO } from '@/constants';
 import { getLoginUserUsingGET } from '@/services/AiPlots/UserController';
 import { createFromIconfontCN } from '@ant-design/icons';
@@ -46,6 +47,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     title: 'AI Plots',
     logo: SYSTEM_LOGO,
+    rightContentRender: () => {},
+    footerRender: () => <Footer />,
     iconfontUrl: '//at.alicdn.com/t/c/font_4064432_y5wwdt2q2be.js',
     // 显示头像
     avatarProps: {
@@ -80,6 +83,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
+            settings={initialState?.settings}
             onSettingChange={(settings) => {
               setInitialState((preInitialState: any) => ({
                 ...preInitialState,
@@ -90,6 +94,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       );
     },
+    ...initialState?.settings,
   };
 };
 

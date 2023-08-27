@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import {
   deleteChartUsingPOST,
   listMyChartByPageUsingPOST,
@@ -197,7 +196,6 @@ const MyChartPage: React.FC = () => {
           </List.Item>
         )}
       />
-      <Footer />
     </div>
   );
 };

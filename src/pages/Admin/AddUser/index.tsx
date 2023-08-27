@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { selectGender, selectUserRole, selectUserStatus, SYSTEM_LOGO } from '@/constants';
 import { addUserUsingPOST, getLoginUserUsingGET } from '@/services/AiPlots/UserController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -197,7 +196,6 @@ const Login: React.FC = () => {
           />
         </LoginForm>
       </div>
-      <Footer />
     </div>
   );
 };

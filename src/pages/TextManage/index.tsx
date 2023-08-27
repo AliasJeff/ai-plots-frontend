@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { listMyTextTaskByPageUsingPOST } from '@/services/AiPlots/textController';
 import { useModel } from '@@/exports';
 import { RedoOutlined } from '@ant-design/icons';
@@ -144,7 +143,6 @@ const MyTextPage: React.FC = () => {
           </List.Item>
         )}
       />
-      <Footer />
     </div>
   );
 };

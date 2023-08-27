@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { deleteChartUsingPOST, listChartByPageUsingPOST } from '@/services/AiPlots/ChartController';
 import { Link, useModel } from '@@/exports';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -225,7 +224,6 @@ const AminChartPage: React.FC = () => {
           </List.Item>
         )}
       />
-      <Footer />
     </div>
   );
 };

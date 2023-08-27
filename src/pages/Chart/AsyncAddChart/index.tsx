@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { CHART_TYPE_SELECT } from '@/constants';
 import { genChartByAiAsyncMqUsingPOST } from '@/services/AiPlots/ChartController';
 import { UploadOutlined } from '@ant-design/icons';
@@ -127,7 +126,6 @@ const AsyncAddChart: React.FC = () => {
           </Form.Item>
         </Form>
       </Card>
-      <Footer />
     </div>
   );
 };

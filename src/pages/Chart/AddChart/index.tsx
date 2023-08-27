@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer'; // 导入自定义的 CSS 样式文件
 import { CHART_TYPE_SELECT } from '@/constants';
 import { genChartByAiUsingPOST } from '@/services/AiPlots/ChartController';
 import { UploadOutlined } from '@ant-design/icons';
@@ -214,7 +213,6 @@ const AddChart: React.FC = () => {
           </Card>
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { Button, Card, Divider, Form, message, Space } from 'antd';
 import React, { useState } from 'react';
 
-import Footer from '@/components/Footer';
 import { aiAssistantUsingPOST } from '@/services/AiPlots/AiAssistantController';
 import { ProForm } from '@ant-design/pro-form';
 import TextArea from 'antd/es/input/TextArea';
@@ -102,7 +101,6 @@ const AddChat: React.FC = () => {
           </Form.Item>
         </Form>
       </Card>
-      <Footer />
     </div>
   );
 };

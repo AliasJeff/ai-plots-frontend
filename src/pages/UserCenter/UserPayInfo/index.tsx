@@ -1,7 +1,6 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 
-import Footer from '@/components/Footer';
 import { listMyPayInfoByPageUsingPOST } from '@/services/AiPlots/aliPayInfoController';
 import { message, Tag } from 'antd';
 import { useState } from 'react';
@@ -143,7 +142,6 @@ export default () => {
           position: ['bottomCenter'],
         }}
       />
-      <Footer />
     </>
   );
 };

@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { listOrderByPageUsingPOST } from '@/services/AiPlots/aiFrequencyOrderController';
 import { payCodeUsingPOST, tradeQueryUsingPOST } from '@/services/AiPlots/aliPayController';
 import { ProColumns } from '@ant-design/pro-components';
@@ -241,7 +240,6 @@ const MyOrder: React.FC = () => {
           <Image width={200} src={er}></Image>
         </Modal>
       </div>
-      <Footer />
     </>
   );
 };

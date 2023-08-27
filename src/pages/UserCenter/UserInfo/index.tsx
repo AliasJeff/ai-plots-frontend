@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { selectAvatarUrl, selectGender } from '@/constants';
 import { getAiFrequencyUsingGET } from '@/services/AiPlots/aiFrequencyController';
 import { addOrderUsingPOST } from '@/services/AiPlots/aiFrequencyOrderController';
@@ -382,7 +381,6 @@ const UserInfo: React.FC = () => {
           />
         </ProForm.Group>
       </ModalForm>
-      <Footer />
     </div>
   );
 };

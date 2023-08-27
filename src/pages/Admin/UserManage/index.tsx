@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { selectGender, selectUserRole } from '@/constants';
 import {
   deleteUserUsingPOST,
@@ -311,7 +310,6 @@ export default () => {
         dateFormatter="string"
         headerTitle="用户列表"
       />
-      <Footer />
     </>
   );
 };

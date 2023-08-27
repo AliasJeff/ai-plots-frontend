@@ -1,7 +1,6 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
 
-import Footer from '@/components/Footer';
 import {
   cancelOrderUsingPOST,
   deleteOrderUsingPOST,
@@ -252,7 +251,6 @@ export default () => {
           position: ['bottomCenter'],
         }}
       />
-      <Footer />
     </>
   );
 };

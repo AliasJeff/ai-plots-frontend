@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { REGISTER_BACKGROUND_IMAGE, SYSTEM_LOGO } from '@/constants';
 
 import { getLoginUserUsingGET, userRegisterUsingPOST } from '@/services/AiPlots/UserController';
@@ -165,7 +164,6 @@ const Login: React.FC = () => {
           </div>
         </LoginFormPage>
       </div>
-      <Footer />
     </div>
   );
 };

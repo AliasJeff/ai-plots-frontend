@@ -1,7 +1,6 @@
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import Footer from '@/components/Footer';
 import {
   deleteAiAssistantUsingPOST,
   listMyAiAssistantByPageUsingPOST,
@@ -220,7 +219,6 @@ const ChatManage: React.FC = () => {
           </List.Item>
         )}
       />
-      <Footer />
     </div>
   );
 };

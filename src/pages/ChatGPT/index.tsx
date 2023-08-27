@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { SendOutlined } from '@ant-design/icons';
 import { Button, Card, Divider, Form, Input, message } from 'antd';
 import CryptoJS from 'crypto-js';
@@ -100,7 +99,6 @@ const ChatPage: React.FC = () => {
           </Button>
         </div>
       </Card>
-      <Footer />
     </div>
   );
 };
