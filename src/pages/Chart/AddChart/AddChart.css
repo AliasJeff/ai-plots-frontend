@@ -1,0 +1,9 @@
+.add-text-async {
+  position: relative;
+}
+
+.tip {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
