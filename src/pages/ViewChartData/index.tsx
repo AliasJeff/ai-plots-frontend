@@ -50,18 +50,18 @@ const ViewChart: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div
                 style={{
-                  background: '#007BFF',
-                  padding: '5px 10px',
-                  borderRadius: '4px',
-                  display: 'inline-block',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 10,
                   marginBottom: 20,
                 }}
               >
-                <Divider
-                  style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', margin: 0 }}
-                >
-                  原始数据
-                </Divider>
+                <div>
+                  <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
+                    原始数据
+                  </Divider>
+                </div>
               </div>
             </div>
 
@@ -85,18 +85,18 @@ const ViewChart: React.FC = () => {
             >
               <div
                 style={{
-                  background: '#007BFF',
-                  padding: '5px 10px',
-                  borderRadius: '4px',
-                  display: 'inline-block',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 10,
                   marginBottom: 20,
                 }}
               >
-                <Divider
-                  style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', margin: 0 }}
-                >
-                  图表信息
-                </Divider>
+                <div>
+                  <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
+                    图表信息
+                  </Divider>
+                </div>
               </div>
               <div>
                 <p>分析目标：{chart?.goal}</p>
@@ -118,18 +118,18 @@ const ViewChart: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div
                 style={{
-                  background: '#007BFF',
-                  padding: '5px 10px',
-                  borderRadius: '4px',
-                  display: 'inline-block',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 10,
                   marginBottom: 20,
                 }}
               >
-                <Divider
-                  style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', margin: 0 }}
-                >
-                  可视化图表
-                </Divider>
+                <div>
+                  <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
+                    可视化图表
+                  </Divider>
+                </div>
               </div>
             </div>
             {option ? <ReactECharts option={option} /> : <div>请先在左侧进行提交</div>}
@@ -143,18 +143,18 @@ const ViewChart: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div
                 style={{
-                  background: '#007BFF',
-                  padding: '5px 10px',
-                  borderRadius: '4px',
-                  display: 'inline-block',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 10,
                   marginBottom: 20,
                 }}
               >
-                <Divider
-                  style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', margin: 0 }}
-                >
-                  分析结论
-                </Divider>
+                <div>
+                  <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
+                    分析结论
+                  </Divider>
+                </div>
               </div>
             </div>
             <div style={{ whiteSpace: 'pre-wrap', overflow: 'auto', textAlign: 'center' }}>

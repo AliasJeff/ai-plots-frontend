@@ -177,8 +177,8 @@ const MyOrder: React.FC = () => {
               订单已取消
             </Button>
           ) : (
-            <Button type="primary" onClick={() => orderInfo(record.id)}>
-              付款
+            <Button type="primary" onClick={() => orderInfo(record.id)} disabled>
+              付款（敬请期待）
             </Button>
           )}
         </>

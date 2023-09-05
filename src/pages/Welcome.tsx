@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Alert, Card, theme } from 'antd';
+import { Alert, Button, Card, theme } from 'antd';
 import React from 'react';
 
 /**
@@ -85,8 +85,28 @@ const Welcome: React.FC = () => {
   return (
     <PageContainer key="index" title={false}>
       <Alert
-        message={'开发不易，给孩子点个Star吧'}
+        message={'开发不易，给孩子点个Stars吧(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )~ →→→→→→→→→'}
         type="success"
+        action={[
+          <Button
+            size="small"
+            onClick={() => {
+              window.open('https://github.com/AliasJeff?tab=repositories');
+            }}
+            type="link"
+          >
+            这次一定！(Github)
+          </Button>,
+          <Button
+            size="small"
+            onClick={() => {
+              window.open('https://gitee.com/AliasJeff');
+            }}
+            type="link"
+          >
+            这次一定！(Gitee)
+          </Button>,
+        ]}
         showIcon
         banner
         style={{

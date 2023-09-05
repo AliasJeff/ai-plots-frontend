@@ -59,7 +59,7 @@
       },
     ],
   },
-  { path: '/chatgpt', name: 'AI聊天', icon: 'MessageTwoTone', component: './ChatGPT' },
+  { path: '/chatgpt', name: 'AI对话', icon: 'MessageTwoTone', component: './ChatGPT' },
   { path: '/gen_chart', name: '图表中心', icon: 'SlidersTwoTone', component: './ChartManage' },
   { path: '/gen_text', name: '文本中心', icon: 'ProfileTwoTone', component: './TextManage' },
   {

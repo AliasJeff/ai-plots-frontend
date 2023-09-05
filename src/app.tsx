@@ -106,7 +106,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 export const request = {
   // 请求后端地址
   baseURL: 'http://localhost:8080',
-
   // 获取cookie
   withCredentials: true,
   ...errorConfig,

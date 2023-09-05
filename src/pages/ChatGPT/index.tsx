@@ -8,6 +8,37 @@ const ChatPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [messageCount, setMessageCount] = useState(0);
 
+  const getWebsocketUrl = async (apiKey: string, apiSecret: string) => {
+    const url = 'wss://tts-api.xfyun.cn/v2/tts';
+    const host = location.host;
+    const date = new Date().toGMTString();
+    const algorithm = 'hmac-sha256';
+    const headers = 'host date request-line';
+    const signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v2/tts HTTP/1.1`;
+    const signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
+    const signature = CryptoJS.enc.Base64.stringify(signatureSha);
+    const authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`;
+    const authorization = btoa(authorizationOrigin);
+    return `${url}?authorization=${authorization}&date=${date}&host=${host}`;
+  };
+  const createChatMessage = (sender: string, text: string): Message => {
+    return { sender, text };
+  };
+
+  const callXFYunTTS = async () => {
+    const API_KEY = 'xxx'; // 用您的API密钥替换
+    const API_SECRET = 'xxx'; // 用您的API密钥替换
+    const url = await getWebsocketUrl(API_KEY, API_SECRET);
+
+    try {
+      // 调用讯飞TTS API的逻辑
+      const response = await fetch(url); // 发起WebSocket请求或其他HTTP请求方式，具体请参考讯飞TTS API文档
+      return await response.text(); // 返回实际的API响应数据
+    } catch (error) {
+      throw new Error('API调用错误: ' + error.message);
+    }
+  };
+
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') {
       return;
@@ -24,7 +55,7 @@ const ChatPage: React.FC = () => {
     setMessageCount((prevCount) => prevCount + 1);
 
     try {
-      const aiResponse = await callXFYunTTS(inputValue);
+      const aiResponse = await callXFYunTTS();
       const aiMessage = createChatMessage('ai', aiResponse);
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
     } catch (error) {
@@ -33,42 +64,10 @@ const ChatPage: React.FC = () => {
     }
   };
 
-  const createChatMessage = (sender: string, text: string): Message => {
-    return { sender, text };
-  };
-
-  const getWebsocketUrl = async (apiKey: string, apiSecret: string) => {
-    const url = 'wss://tts-api.xfyun.cn/v2/tts';
-    const host = location.host;
-    const date = new Date().toGMTString();
-    const algorithm = 'hmac-sha256';
-    const headers = 'host date request-line';
-    const signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v2/tts HTTP/1.1`;
-    const signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
-    const signature = CryptoJS.enc.Base64.stringify(signatureSha);
-    const authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`;
-    const authorization = btoa(authorizationOrigin);
-    return `${url}?authorization=${authorization}&date=${date}&host=${host}`;
-  };
-
-  const callXFYunTTS = async (input: string) => {
-    const API_KEY = 'xxx'; // 用您的API密钥替换
-    const API_SECRET = 'xxx'; // 用您的API密钥替换
-    const url = await getWebsocketUrl(API_KEY, API_SECRET);
-
-    try {
-      // 调用讯飞TTS API的逻辑
-      const response = await fetch(url); // 发起WebSocket请求或其他HTTP请求方式，具体请参考讯飞TTS API文档
-      return await response.text(); // 返回实际的API响应数据
-    } catch (error) {
-      throw new Error('讯飞TTS API调用错误: ' + error.message);
-    }
-  };
-
   return (
     <div className="chat-page">
       <Card>
-        <Divider>聊天</Divider>
+        <Divider>对话</Divider>
         <div className="chat-container">
           {messages.map((message, index) => (
             <div
@@ -80,8 +79,11 @@ const ChatPage: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="input-container">
-          <Form.Item>
+        <div
+          className="input-container"
+          style={{ display: 'flex', justifyContent: 'space-between', columnGap: 10 }}
+        >
+          <Form.Item style={{ flex: 18 }}>
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -93,7 +95,7 @@ const ChatPage: React.FC = () => {
             type="primary"
             icon={<SendOutlined />}
             onClick={handleSendMessage}
-            style={{ position: 'absolute', bottom: '0', right: '0' }}
+            style={{ flex: 1 }}
           >
             发送
           </Button>
