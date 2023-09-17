@@ -51,13 +51,33 @@ const AddChart: React.FC = () => {
     setSubmitting(false);
   };
 
+  const customRequest = (option: any) => {
+    const urlData = URL.createObjectURL(option.file); //转为blob格式（二进制文件）
+    console.log('blob:', urlData);
+    option.onSuccess();
+  };
+
+  const beforeUpload = (file: any) => {
+    const fileSize = file.size / 1024 / 1024 < 5;
+    if (!fileSize) {
+      message.error('文件应当小于5MB!', 1000);
+    }
+    return fileSize;
+  };
+
+  const handleChange = (info: any) => {
+    console.debug('info:', info);
+    if (info.file.status === 'done') {
+      message.success('上传成功');
+    }
+    if (info.file.status === 'error') {
+      message.error('上传失败');
+    }
+  };
+
   return (
     <div className="add-chart">
-      <div className="tip">
-        <a href="/person/user_info" style={{ color: '#1890ff' }}>
-          领取每日智能分析图表次数获取请到个人中心个人信息页面-点击文字-跳转
-        </a>
-      </div>
+      <div className="tip"></div>
       <Row gutter={24}>
         <Col span={12}>
           <Card>
@@ -108,7 +128,14 @@ const AddChart: React.FC = () => {
               </Form.Item>
 
               <Form.Item name="file" label="原始数据">
-                <Upload name="file" maxCount={1} accept=".csv,.xls,.xlsx,.json,.txt,.xml,.sql">
+                <Upload
+                  name="file"
+                  maxCount={1}
+                  accept=".csv,.xls,.xlsx,.json,.txt,.xml,.sql"
+                  beforeUpload={beforeUpload}
+                  onChange={handleChange}
+                  customRequest={customRequest}
+                >
                   <Button icon={<UploadOutlined />}>上传 CSV 文件(Excel)</Button>
                 </Upload>
                 {/*todo*/}

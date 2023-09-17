@@ -13,6 +13,7 @@ import * as QueueController from './QueueController';
 import * as textController from './textController';
 import * as UserController from './UserController';
 export default {
+  QueueController,
   AiAssistantController,
   aiFrequencyController,
   aliPayController,
@@ -20,7 +21,6 @@ export default {
   creditController,
   aiFrequencyOrderController,
   aliPayInfoController,
-  QueueController,
   textController,
   UserController,
 };

@@ -97,11 +97,7 @@ const AddTextMQ: React.FC = () => {
             </Space>
           </Form.Item>
         </Form>
-        <div className="tip">
-          <a href="/person/user_info" style={{ color: '#1890ff' }}>
-            领取每日智能转换文本次数获取请到个人中心个人信息页面-点击文字-跳转
-          </a>
-        </div>
+        <div className="tip"></div>
       </Card>
     </div>
   );

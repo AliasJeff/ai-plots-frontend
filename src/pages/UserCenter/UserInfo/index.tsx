@@ -3,7 +3,6 @@ import { getAiFrequencyUsingGET } from '@/services/AiPlots/aiFrequencyController
 import { addOrderUsingPOST } from '@/services/AiPlots/aiFrequencyOrderController';
 import { signCreditUsingGET } from '@/services/AiPlots/creditController';
 import {
-  getCreditByUserIdUsingGET,
   getLoginUserUsingGET,
   getUserVOByIdUsingGET,
   updateMyInfoUsingPOST,
@@ -53,7 +52,7 @@ const UserInfo: React.FC = () => {
       您的信息已成功修改！
     </Modal>
   );
-  const [creditInfo, setCreditInfo] = useState<number>();
+  // const [creditInfo, setCreditInfo] = useState<number>();
   const [submitting, setSubmitting] = useState<boolean>(false);
   useEffect(() => {
     async function fetchData() {
@@ -126,22 +125,22 @@ const UserInfo: React.FC = () => {
   /**
    * 获取积分
    */
-  const creditTotal = async () => {
-    try {
-      const res = await getCreditByUserIdUsingGET();
-      if (res.data) {
-        setCreditInfo(res.data ?? 0);
-      } else {
-        message.error('获取我的积分失败');
-      }
-    } catch (e: any) {
-      message.error('获取我的积分失败，' + e.message);
-    }
-  };
-
-  useEffect(() => {
-    creditTotal();
-  }, []);
+  // const creditTotal = async () => {
+  //   try {
+  //     const res = await getCreditByUserIdUsingGET();
+  //     if (res.data) {
+  //       setCreditInfo(res.data ?? 0);
+  //     } else {
+  //       message.error('获取我的积分失败');
+  //     }
+  //   } catch (e: any) {
+  //     message.error('获取我的积分失败，' + e.message);
+  //   }
+  // };
+  //
+  // useEffect(() => {
+  //   creditTotal();
+  // }, []);
 
   /**
    * 签到
@@ -214,38 +213,38 @@ const UserInfo: React.FC = () => {
         </Card>
       </Descriptions>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 20,
-          marginBottom: 20,
-        }}
-      >
-        <div>
-          <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
-            文本分析积分获取
-          </Divider>
-        </div>
-      </div>
-      <Descriptions bordered size={'default'} contentStyle={{ color: 'black' }}>
-        <Card style={{ textAlign: 'center' }} type="inner">
-          <div style={{ display: 'flex', justifyContent: 'space-evenly', fontSize: 16 }}>
-            <span>当前积分为：{creditInfo ? creditInfo : 0}</span>
-            <span>
-              <Button
-                type={'primary'}
-                onClick={signDaily}
-                style={{ marginLeft: '150px' }}
-                disabled={submitting}
-              >
-                每日签到
-              </Button>
-            </span>
-          </div>
-        </Card>
-      </Descriptions>
+      {/*<div*/}
+      {/*  style={{*/}
+      {/*    display: 'flex',*/}
+      {/*    justifyContent: 'center',*/}
+      {/*    alignItems: 'center',*/}
+      {/*    marginTop: 20,*/}
+      {/*    marginBottom: 20,*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <div>*/}
+      {/*    <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>*/}
+      {/*      文本分析积分获取*/}
+      {/*    </Divider>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+      {/*<Descriptions bordered size={'default'} contentStyle={{ color: 'black' }}>*/}
+      {/*  <Card style={{ textAlign: 'center' }} type="inner">*/}
+      {/*    <div style={{ display: 'flex', justifyContent: 'space-evenly', fontSize: 16 }}>*/}
+      {/*      <span>当前积分为：{creditInfo ? creditInfo : 0}</span>*/}
+      {/*      <span>*/}
+      {/*        <Button*/}
+      {/*          type={'primary'}*/}
+      {/*          onClick={signDaily}*/}
+      {/*          style={{ marginLeft: '150px' }}*/}
+      {/*          disabled={submitting}*/}
+      {/*        >*/}
+      {/*          每日签到*/}
+      {/*        </Button>*/}
+      {/*      </span>*/}
+      {/*    </div>*/}
+      {/*  </Card>*/}
+      {/*</Descriptions>*/}
 
       <div
         style={{

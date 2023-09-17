@@ -306,6 +306,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseString_ = {
+    code?: number;
+    data?: string;
+    message?: string;
+  };
+
   type BaseResponseTextTask_ = {
     code?: number;
     data?: TextTask;
@@ -661,6 +667,11 @@ declare namespace API {
     alipayAccountNo?: string;
   };
 
+  type sendEmailUsingPOSTParams = {
+    /** email */
+    email?: string;
+  };
+
   type TextAddRequest = {
     name?: string;
     textType?: string;
@@ -786,6 +797,8 @@ declare namespace API {
 
   type UserRegisterRequest = {
     checkPassword?: string;
+    code?: string;
+    email?: string;
     userAccount?: string;
     userPassword?: string;
   };

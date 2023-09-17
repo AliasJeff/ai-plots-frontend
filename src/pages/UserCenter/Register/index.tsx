@@ -1,9 +1,13 @@
 import { REGISTER_BACKGROUND_IMAGE, SYSTEM_LOGO } from '@/constants';
 
-import { getLoginUserUsingGET, userRegisterUsingPOST } from '@/services/AiPlots/UserController';
+import {
+  getLoginUserUsingGET,
+  sendEmailUsingPOST,
+  userRegisterUsingPOST,
+} from '@/services/AiPlots/UserController';
 import { Link } from '@@/exports';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { ProFormText } from '@ant-design/pro-components';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { ProFormCaptcha, ProFormText } from '@ant-design/pro-components';
 import { LoginFormPage } from '@ant-design/pro-form/lib';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, history, useModel } from '@umijs/max';
@@ -119,6 +123,25 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+
+              <ProFormText
+                name="email"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <MailOutlined />,
+                }}
+                placeholder={'请输入邮箱'}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入邮箱！',
+                  },
+                  {
+                    pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+                    message: '邮箱格式错误！',
+                  },
+                ]}
+              />
               <ProFormText.Password
                 name="userPassword"
                 fieldProps={{
@@ -156,6 +179,42 @@ const Login: React.FC = () => {
                     message: '密码不能小于6位！',
                   },
                 ]}
+              />
+              <ProFormCaptcha
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined className={'prefixIcon'} />,
+                }}
+                captchaProps={{
+                  size: 'large',
+                }}
+                placeholder={'请输入验证码'}
+                captchaTextRender={(timing, count) => {
+                  if (timing) {
+                    return `${count} ${'后重新获取'}`;
+                  }
+                  return '获取验证码';
+                }}
+                name="code"
+                phoneName="email"
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入验证码！',
+                  },
+                ]}
+                onGetCaptcha={async (email) => {
+                  //获取验证成功后才会进行倒计时
+                  try {
+                    const result = await sendEmailUsingPOST({
+                      email,
+                    });
+                    if (!result) {
+                      return;
+                    }
+                    message.success(result.data);
+                  } catch (e) {}
+                }}
               />
             </>
           )}
