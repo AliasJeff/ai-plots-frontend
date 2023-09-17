@@ -26,12 +26,11 @@ const ChatPage: React.FC = () => {
   };
 
   const callXFYunTTS = async () => {
-    const API_KEY = 'xxx'; // 用您的API密钥替换
-    const API_SECRET = 'xxx'; // 用您的API密钥替换
+    const API_KEY = 'xxx'; // API密钥
+    const API_SECRET = 'xxx'; // API密钥
     const url = await getWebsocketUrl(API_KEY, API_SECRET);
 
     try {
-      // 调用讯飞TTS API的逻辑
       const response = await fetch(url); // 发起WebSocket请求或其他HTTP请求方式，具体请参考讯飞TTS API文档
       return await response.text(); // 返回实际的API响应数据
     } catch (error) {

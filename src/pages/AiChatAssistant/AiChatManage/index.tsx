@@ -175,7 +175,7 @@ const ChatManage: React.FC = () => {
                       }
                     />
 
-                    <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
+                    <Divider style={{ fontWeight: 'bold', color: 'black', fontSize: '16px' }}>
                       AI解答
                     </Divider>
                     <div style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>

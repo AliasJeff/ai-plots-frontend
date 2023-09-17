@@ -28,7 +28,7 @@ const AddChat: React.FC = () => {
       if (!res?.data) {
         message.error('操作失败');
       } else {
-        message.success('对话添加成功，请稍后到 AI解答 界面查看结果');
+        message.success('对话添加成功，请稍后到 智能分析结果 界面查看结果');
         form.resetFields();
       }
     } catch (e: any) {

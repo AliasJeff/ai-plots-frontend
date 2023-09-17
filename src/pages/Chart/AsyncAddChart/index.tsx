@@ -30,7 +30,7 @@ const AsyncAddChart: React.FC = () => {
     try {
       const res = await genChartByAiAsyncMqUsingPOST(param, {}, values.file.file.originFileObj);
       if (!res?.data) {
-        message.error('分析失败');
+        message.error('分析失败,' + res?.message);
       } else {
         message.success('图表分析成功，请稍后到 我的图表 界面查看结果');
         form.resetFields();
@@ -40,6 +40,30 @@ const AsyncAddChart: React.FC = () => {
     }
     // 提交完成
     setSubmitting(false);
+  };
+
+  const customRequest = (option: any) => {
+    const urlData = URL.createObjectURL(option.file); //转为blob格式（二进制文件）
+    console.log('blob:', urlData);
+    option.onSuccess();
+  };
+
+  const beforeUpload = (file: any) => {
+    const fileSize = file.size / 1024 / 1024 < 5;
+    if (!fileSize) {
+      message.error('文件应当小于5MB!', 1000);
+    }
+    return fileSize;
+  };
+
+  const handleChange = (info: any) => {
+    console.debug('info:', info);
+    if (info.file.status === 'done') {
+      message.success('上传成功');
+    }
+    if (info.file.status === 'error') {
+      message.error('上传失败');
+    }
   };
 
   return (
@@ -92,7 +116,14 @@ const AsyncAddChart: React.FC = () => {
           </Form.Item>
 
           <Form.Item name="file" label="原始数据">
-            <Upload name="file" maxCount={1} accept=".csv,.xls,.xlsx,.json,.txt,.xml,.sql">
+            <Upload
+              name="file"
+              maxCount={1}
+              accept=".csv,.xls,.xlsx,.json,.txt,.xml,.sql"
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+              customRequest={customRequest}
+            >
               <Button icon={<UploadOutlined />}>上传 CSV 文件(Excel)</Button>
             </Upload>
           </Form.Item>

@@ -42,6 +42,30 @@ const AddTextMQ: React.FC = () => {
     setSubmitting(false);
   };
 
+  const customRequest = (option: any) => {
+    const urlData = URL.createObjectURL(option.file); //转为blob格式（二进制文件）
+    console.log('blob:', urlData);
+    option.onSuccess();
+  };
+
+  const beforeUpload = (file: any) => {
+    const fileSize = file.size / 1024 / 1024 < 5;
+    if (!fileSize) {
+      message.error('文件应当小于5MB!', 1000);
+    }
+    return fileSize;
+  };
+
+  const handleChange = (info: any) => {
+    console.debug('info:', info);
+    if (info.file.status === 'done') {
+      message.success('上传成功');
+    }
+    if (info.file.status === 'error') {
+      message.error('上传失败');
+    }
+  };
+
   return (
     <div className="add-text-async">
       <Card>
@@ -83,7 +107,14 @@ const AddTextMQ: React.FC = () => {
             <Select options={[{ value: 'markdown', label: 'markdown格式' }]} />
           </Form.Item>
           <Form.Item name="file" label="原始数据">
-            <Upload name="file" maxCount={1}>
+            <Upload
+              name="file"
+              maxCount={1}
+              accept=".txt"
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+              customRequest={customRequest}
+            >
               <Button icon={<UploadOutlined />}>上传 TXT 文件</Button>
             </Upload>
           </Form.Item>
