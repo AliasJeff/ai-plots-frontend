@@ -24,3 +24,11 @@ export async function getAiFrequencyUsingGET(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** signFrequency GET /api/aiFrequency/sign */
+export async function signFrequencyUsingGET(options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean_>('/api/aiFrequency/sign', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}

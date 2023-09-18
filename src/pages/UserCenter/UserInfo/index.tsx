@@ -1,7 +1,9 @@
 import { selectAvatarUrl, selectGender } from '@/constants';
-import { getAiFrequencyUsingGET } from '@/services/AiPlots/aiFrequencyController';
+import {
+  getAiFrequencyUsingGET,
+  signFrequencyUsingGET,
+} from '@/services/AiPlots/aiFrequencyController';
 import { addOrderUsingPOST } from '@/services/AiPlots/aiFrequencyOrderController';
-import { signCreditUsingGET } from '@/services/AiPlots/creditController';
 import {
   getLoginUserUsingGET,
   getUserVOByIdUsingGET,
@@ -52,7 +54,6 @@ const UserInfo: React.FC = () => {
       您的信息已成功修改！
     </Modal>
   );
-  // const [creditInfo, setCreditInfo] = useState<number>();
   const [submitting, setSubmitting] = useState<boolean>(false);
   useEffect(() => {
     async function fetchData() {
@@ -75,10 +76,9 @@ const UserInfo: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const loadData = async () => {
+  const fetchAiFrequency = async () => {
     try {
       const res = await getAiFrequencyUsingGET();
-      // console.log('用户次数', res.data);
       if (res.data) {
         setFrequency(res.data);
       }
@@ -104,7 +104,7 @@ const UserInfo: React.FC = () => {
     } else {
       message.error('生成订单失败');
     }
-    loadData();
+    await fetchAiFrequency();
     setIsModalOpen(false);
   };
   // 取消支付
@@ -122,25 +122,10 @@ const UserInfo: React.FC = () => {
       }
     });
   };
-  /**
-   * 获取积分
-   */
-  // const creditTotal = async () => {
-  //   try {
-  //     const res = await getCreditByUserIdUsingGET();
-  //     if (res.data) {
-  //       setCreditInfo(res.data ?? 0);
-  //     } else {
-  //       message.error('获取我的积分失败');
-  //     }
-  //   } catch (e: any) {
-  //     message.error('获取我的积分失败，' + e.message);
-  //   }
-  // };
-  //
-  // useEffect(() => {
-  //   creditTotal();
-  // }, []);
+
+  useEffect(() => {
+    fetchAiFrequency();
+  }, []);
 
   /**
    * 签到
@@ -148,7 +133,7 @@ const UserInfo: React.FC = () => {
   const signDaily = async () => {
     setSubmitting(true);
     try {
-      const res = await signCreditUsingGET();
+      const res = await signFrequencyUsingGET();
       if (!res?.data) {
         message.error('签到失败，今天已签到');
       } else {
@@ -162,9 +147,7 @@ const UserInfo: React.FC = () => {
 
   useEffect(() => {
     try {
-      loadData();
       getUserInfo(initialState?.currentUser?.id).then(() => {});
-      // console.log('用户信息', initialState?.currentUser);
     } catch (e: any) {
       console.log(e);
     }
@@ -182,9 +165,7 @@ const UserInfo: React.FC = () => {
         }}
       >
         <div>
-          <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
-            智能图表|问题次数
-          </Divider>
+          <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>调用次数</Divider>
         </div>
       </div>
       <Descriptions bordered size={'default'} contentStyle={{ color: 'black' }}>
@@ -197,7 +178,10 @@ const UserInfo: React.FC = () => {
               {'剩余：' + frequency?.remainFrequency + ' 次'}
             </div>
             <div>
-              <Button type="primary" onClick={showModal}>
+              <Button type={'primary'} onClick={signDaily} disabled={submitting}>
+                每日签到
+              </Button>
+              <Button type="primary" onClick={showModal} disabled style={{ marginLeft: '150px' }}>
                 充值
               </Button>
               <Modal
@@ -212,39 +196,6 @@ const UserInfo: React.FC = () => {
           </div>
         </Card>
       </Descriptions>
-
-      {/*<div*/}
-      {/*  style={{*/}
-      {/*    display: 'flex',*/}
-      {/*    justifyContent: 'center',*/}
-      {/*    alignItems: 'center',*/}
-      {/*    marginTop: 20,*/}
-      {/*    marginBottom: 20,*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <div>*/}
-      {/*    <Divider style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>*/}
-      {/*      文本分析积分获取*/}
-      {/*    </Divider>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-      {/*<Descriptions bordered size={'default'} contentStyle={{ color: 'black' }}>*/}
-      {/*  <Card style={{ textAlign: 'center' }} type="inner">*/}
-      {/*    <div style={{ display: 'flex', justifyContent: 'space-evenly', fontSize: 16 }}>*/}
-      {/*      <span>当前积分为：{creditInfo ? creditInfo : 0}</span>*/}
-      {/*      <span>*/}
-      {/*        <Button*/}
-      {/*          type={'primary'}*/}
-      {/*          onClick={signDaily}*/}
-      {/*          style={{ marginLeft: '150px' }}*/}
-      {/*          disabled={submitting}*/}
-      {/*        >*/}
-      {/*          每日签到*/}
-      {/*        </Button>*/}
-      {/*      </span>*/}
-      {/*    </div>*/}
-      {/*  </Card>*/}
-      {/*</Descriptions>*/}
 
       <div
         style={{

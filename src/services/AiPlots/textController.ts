@@ -218,3 +218,18 @@ export async function updateMyTextTaskUsingPOST(
     ...(options || {}),
   });
 }
+
+/** updateTextTask POST /api/text/update */
+export async function updateTextTaskUsingPOST(
+  body: API.TextUpdateRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/text/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
