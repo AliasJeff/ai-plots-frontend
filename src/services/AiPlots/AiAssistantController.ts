@@ -77,6 +77,14 @@ export async function getAiAssistantByIdUsingGET(
   });
 }
 
+/** getCount GET /api/aiAssistant/getAiAssistantCount */
+export async function getCountUsingGET(options?: { [key: string]: any }) {
+  return request<API.BaseResponseInt_>('/api/aiAssistant/getAiAssistantCount', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 分页获取对话 POST /api/aiAssistant/list/page */
 export async function listAiAssistantByPageUsingPOST(
   body: API.AiAssistantQueryRequest,

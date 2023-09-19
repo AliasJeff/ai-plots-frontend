@@ -219,6 +219,14 @@ export async function updateMyTextTaskUsingPOST(
   });
 }
 
+/** getTextCount GET /api/text/textCount */
+export async function getTextCountUsingGET(options?: { [key: string]: any }) {
+  return request<API.BaseResponseInt_>('/api/text/textCount', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** updateTextTask POST /api/text/update */
 export async function updateTextTaskUsingPOST(
   body: API.TextUpdateRequest,

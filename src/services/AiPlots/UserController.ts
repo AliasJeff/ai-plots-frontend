@@ -75,6 +75,14 @@ export async function getUserVOByIdUsingGET(
   });
 }
 
+/** getUserCount GET /api/user/getUserCount */
+export async function getUserCountUsingGET(options?: { [key: string]: any }) {
+  return request<API.BaseResponseInt_>('/api/user/getUserCount', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 分页获取用户列表（仅管理员） POST /api/user/list/page */
 export async function listUserByPageUsingPOST(
   body: API.UserQueryRequest,

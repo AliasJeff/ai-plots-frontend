@@ -228,6 +228,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseInt_ = {
+    code?: number;
+    data?: number;
+    message?: string;
+  };
+
   type BaseResponseListAiFrequencyOrderVO_ = {
     code?: number;
     data?: AiFrequencyOrderVO[];

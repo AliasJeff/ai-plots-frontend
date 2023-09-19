@@ -185,6 +185,14 @@ export async function getChartByIdUsingGET(
   });
 }
 
+/** getChartCount GET /api/chart/getChartCount */
+export async function getChartCountUsingGET(options?: { [key: string]: any }) {
+  return request<API.BaseResponseInt_>('/api/chart/getChartCount', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 分页获取图表 POST /api/chart/list/page */
 export async function listChartByPageUsingPOST(
   body: API.ChartQueryRequest,

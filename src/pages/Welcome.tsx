@@ -1,6 +1,16 @@
+import { getCountUsingGET } from '@/services/AiPlots/AiAssistantController';
+import { getChartCountUsingGET } from '@/services/AiPlots/ChartController';
+import { getTextCountUsingGET } from '@/services/AiPlots/textController';
+import { getUserCountUsingGET } from '@/services/AiPlots/UserController';
+import {
+  AlertOutlined,
+  FileMarkdownOutlined,
+  PieChartOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Alert, Button, Card, theme } from 'antd';
-import React from 'react';
+import { Alert, Button, Card, Statistic, theme } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -81,41 +91,31 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { useToken } = theme;
   const { token } = useToken();
+  const [statistic, setStatistic] = useState({});
+
+  const loadData = async () => {
+    try {
+      getUserCountUsingGET().then((res) =>
+        setStatistic((prev) => ({ ...prev, userCount: res?.data })),
+      );
+      getChartCountUsingGET().then((res) =>
+        setStatistic((prev) => ({ ...prev, chartCount: res?.data })),
+      );
+      getCountUsingGET().then((res) =>
+        setStatistic((prev) => ({ ...prev, assistantCount: res?.data })),
+      );
+      getTextCountUsingGET().then((res) =>
+        setStatistic((prev) => ({ ...prev, textCount: res?.data })),
+      );
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <PageContainer key="index" title={false}>
-      <Alert
-        message={'开发不易，给孩子点个Stars吧(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )~ →→→→→→→→→'}
-        type="success"
-        action={[
-          <Button
-            size="small"
-            onClick={() => {
-              window.open('https://github.com/AliasJeff?tab=repositories');
-            }}
-            type="link"
-          >
-            这次一定！(Github)
-          </Button>,
-          <Button
-            size="small"
-            onClick={() => {
-              window.open('https://gitee.com/AliasJeff');
-            }}
-            type="link"
-          >
-            这次一定！(Gitee)
-          </Button>,
-        ]}
-        showIcon
-        banner
-        style={{
-          margin: -12,
-          marginBottom: 28,
-          marginTop: 38,
-          minWidth: '220px',
-        }}
-      />
       <Card
         style={{
           borderRadius: 8,
@@ -134,36 +134,57 @@ const Welcome: React.FC = () => {
             style={{
               fontSize: '20px',
               color: token.colorTextHeading,
+              marginBottom: 50,
             }}
           >
             欢迎使用 AI Plots 平台
           </div>
-          <p
+
+          <div
             style={{
-              fontSize: '14px',
-              color: token.colorTextSecondary,
-              lineHeight: '22px',
-              marginTop: 16,
-              marginBottom: 6,
-              width: '65%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              rowGap: 20,
+              marginBottom: 20,
             }}
           >
-            AI Plots 平台 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            {/*todo*/}
-          </p>
-          <p
-            style={{
-              fontSize: '14px',
-              color: token.colorTextSecondary,
-              lineHeight: '22px',
-              marginTop: 16,
-              marginBottom: 32,
-              width: '65%',
-            }}
-          >
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            {/*todo*/}
-          </p>
+            <Card bordered={false} style={{ width: '100%', margin: 10 }}>
+              <Statistic
+                title="全  站  用  户  数"
+                value={statistic?.userCount}
+                valueStyle={{ color: '#0000FF' }}
+                prefix={<UserOutlined />}
+                suffix="位"
+              />
+            </Card>
+            <Card bordered={false} style={{ width: '100%', margin: 10 }}>
+              <Statistic
+                title="智 能 分 析 图 表 数"
+                value={statistic?.chartCount}
+                valueStyle={{ color: '#cf1322' }}
+                prefix={<PieChartOutlined />}
+                suffix="个"
+              />
+            </Card>
+            <Card bordered={false} style={{ width: '100%', margin: 10 }}>
+              <Statistic
+                title="智  能  问  答  数"
+                value={statistic?.assistantCount}
+                valueStyle={{ color: '#3f8600' }}
+                prefix={<AlertOutlined />}
+              />
+            </Card>
+            <Card bordered={false} style={{ width: '100%', margin: 10 }}>
+              <Statistic
+                title="智  能  文  本  数"
+                value={statistic?.textCount}
+                valueStyle={{ color: '#f8cc5e' }}
+                prefix={<FileMarkdownOutlined />}
+              />
+            </Card>
+          </div>
+
           <div
             style={{
               display: 'flex',
@@ -173,18 +194,91 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              title="AI Plots平台"
-              desc="我们的AI Plots平台是革命性的数据分析工具，为用户提供轻松、快速、智能化的数据分析体验。AI Plots平台让您轻松完成复杂数据分析任务，即使对数据分析一无所知。我们利用AI接口和自动化技术，为您提供快速、准确、可靠的数据洞察。立即体验AI Plots，让数据分析变得简单而智能！"
+              title="平台介绍"
+              desc={
+                <>
+                  <p>
+                    AI
+                    Plots是基于AIGC的智能数据分析平台，专注于图表分析、文本分析和问题分析，为用户提供轻松、快速、智能化的数据分析体验。
+                  </p>
+                  <p>
+                    用户只需将原始数据集导入到平台，系统会根据用户的分析诉求，自动生成可视化图表，并给出相应的分析结论。无需手动控制，极大地提高了大数据工作人员的工作效率和准确性。
+                  </p>
+                </>
+              }
             />
             <InfoCard
               index={2}
-              title="AI Plots介绍"
-              desc="AI Plots是领先的人工智能解决方案，专注于图表分析、文本分析和问题分析。借助先进的机器学习技术，它能迅速准确地解读和处理各种复杂数据。在图表分析方面，AI Plots能自动识别并解释图表中的趋势、模式和关联，助您深入理解数据背后的洞察。通过文本分析，它能提取文本的关键信息、情感倾向和主题，为您提供全面的文本理解支持。不论是处理大量文本数据还是理解复杂文章，AI Plots都能帮助您快速获取所需信息，从而加速决策和研究过程。此外，AI Plots还具备强大的问题分析能力，能自动分析问题并提供准确的答案或解决方案。不论是企业决策难题还是个人研究知识盲点，AI Plots都能为您提供有价值的见解和建议。综合图表分析、文本分析和问题分析功能，AI Plots是全面的智能助手，助您在信息时代脱颖而出，做出更明智决策。"
+              title="技术选型"
+              desc={
+                <>
+                  <div>
+                    <p style={{ marginLeft: 10, fontWeight: 600 }}>前端</p>
+                    <ul>
+                      <li>- React 18</li>
+                      <li>- Ant Design Pro 脚手架</li>
+                      <li>- Umi 前端框架</li>
+                      <li>- Echarts 可视化图表</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p style={{ marginLeft: 10, fontWeight: 600 }}>后端</p>
+                    <ul>
+                      <li>- Java Spring Boot</li>
+                      <li>- MySQL 数据库</li>
+                      <li>- Mybatis-Plus</li>
+                      <li>- Redis + Redisson 限流</li>
+                      <li>- RabbitMQ 消息队列</li>
+                      <li>- JDK线程池及异步化</li>
+                    </ul>
+                  </div>
+                </>
+              }
             />
             <InfoCard
               index={3}
-              title="AI Plots特点"
-              desc="1.多领域分析能力：AI Plots具备跨多个领域的分析能力，包括图表、文本和问题分析。不论是商业数据、科研论文还是实际问题，它都能从多角度进行深入分析。2.智能图表解读：该解决方案能自动解读图表中的趋势、模式和关联，帮助用户更好地理解数据，并发现有价值的见解。3.全面文本理解：AI Plots能提取文本的关键信息、情感倾向和主题，为用户提供全面的文本理解支持，加速信息获取和处理。4.自动问题分析：它具备强大的问题分析能力，能自动分析问题并提供准确的答案或解决方案，帮助用户解决各种难题。"
+              title=""
+              desc={
+                <>
+                  <Alert
+                    message={'开发不易，给孩子点个Stars吧(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )~ 🠗🠗🠗🠗🠗🠗🠗🠗🠗🠗🠗'}
+                    type="success"
+                    showIcon
+                    banner
+                    style={{
+                      marginBottom: 28,
+                      marginTop: 38,
+                    }}
+                  />
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flexDirection: 'column',
+                      rowGap: 20,
+                    }}
+                  >
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        window.open('https://github.com/AliasJeff?tab=repositories');
+                      }}
+                      type="link"
+                    >
+                      这次一定！(Github)
+                    </Button>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        window.open('https://gitee.com/AliasJeff');
+                      }}
+                      type="link"
+                    >
+                      这次一定！(Gitee)
+                    </Button>
+                  </div>
+                </>
+              }
             />
           </div>
         </div>
