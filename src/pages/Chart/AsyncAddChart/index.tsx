@@ -138,7 +138,7 @@ const AsyncAddChart: React.FC = () => {
             >
               {/*todo*/}
               <a
-                href="https://www.yuque.com/kcsshier/zpovmy/lab4hgt8rf9d6sia?singleDoc#"
+                href="https://www.yuque.com/yuqueyonghuygbu8x/dg1ngo/vaou79gdwihmp34c"
                 target="_blank"
               >
                 获取测试数据
